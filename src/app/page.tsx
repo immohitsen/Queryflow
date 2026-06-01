@@ -1,11 +1,23 @@
 "use client";
 
 import React, { useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import { Database, Layers, Loader2, Sparkles } from 'lucide-react';
 import { useQueryStore } from '../store/useQueryStore';
-import EditorPanel from '../components/EditorPanel';
 import VisualizerPanel from '../components/VisualizerPanel';
 import SchemaViewer from '../components/SchemaViewer';
+
+// Dynamically import EditorPanel to prevent SSR compilation/hydration warnings (especially for Monaco Editor)
+const EditorPanel = dynamic(() => import('../components/EditorPanel'), {
+  ssr: false,
+  loading: () => (
+    <div className="flex flex-col items-center justify-center h-full bg-brand-panel/40 border border-brand-border rounded-xl">
+      <Loader2 className="w-6 h-6 text-brand-cyan animate-spin mb-2" />
+      <span className="text-xs text-slate-400">Loading editor...</span>
+    </div>
+  )
+});
+
 
 export default function Home() {
   const { initializeDb, isDbInitialized, isLoadingDb, error } = useQueryStore();
