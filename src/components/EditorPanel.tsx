@@ -1,7 +1,15 @@
 import React, { useEffect, useRef } from 'react';
-import Editor, { Monaco } from '@monaco-editor/react';
+import Editor, { Monaco, loader } from '@monaco-editor/react';
 import { Play, RotateCcw, Share2, Database, AlertCircle, Loader2 } from 'lucide-react';
 import { useQueryStore } from '../store/useQueryStore';
+
+// Self-host Monaco Editor files instead of loading from jsDelivr CDN.
+// The files are copied to public/monaco-editor/min/vs/ from node_modules.
+loader.config({
+  paths: {
+    vs: '/monaco-editor/min/vs',
+  },
+});
 
 export default function EditorPanel() {
   const { 
