@@ -1,26 +1,105 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
+@theme {
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'Fira Code', monospace;
+
+  /* Custom Theme Palette */
+  --color-brand-bg: #070913;
+  --color-brand-panel: #0d1127;
+  --color-brand-cyan: #00D4FF;
+  --color-brand-cyan-glow: rgba(0, 212, 255, 0.2);
+  --color-brand-border: rgba(255, 255, 255, 0.08);
+  --color-brand-border-glow: rgba(0, 212, 255, 0.15);
+
+  /* SQL Stages Color Tokens */
+  --color-stage-from: #3B82F6;     /* Blue */
+  --color-stage-where: #EF4444;    /* Red */
+  --color-stage-group: #F59E0B;    /* Amber */
+  --color-stage-having: #EC4899;   /* Pink */
+  --color-stage-select: #10B981;   /* Emerald */
+  --color-stage-distinct: #14B8A6; /* Teal */
+  --color-stage-order: #8B5CF6;    /* Violet */
+  --color-stage-limit: #6366F1;    /* Indigo */
+}
+
+/* Custom properties for background and text */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #070913;
+  --foreground: #F1F5F9;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  overflow-x: hidden;
 }
+
+/* Glassmorphism card utilities */
+.glass-panel {
+  background: rgba(13, 17, 39, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(0, 212, 255, 0.2);
+  box-shadow: 0 0 15px rgba(0, 212, 255, 0.05);
+}
+
+.cyan-glow {
+  box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
+}
+
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(7, 9, 19, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 212, 255, 0.3);
+}
+
+/* Code editor overrides */
+.monaco-editor {
+  padding-top: 8px;
+}
+
+/* Custom Animations */
+@keyframes pulse-cyan {
+  0%, 100% {
+    opacity: 0.6;
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+  }
+  50% {
+    opacity: 1;
+    box-shadow: 0 0 25px rgba(0, 212, 255, 0.4);
+  }
+}
+
+.active-pulse {
+  animation: pulse-cyan 2s infinite ease-in-out;
+}
+
